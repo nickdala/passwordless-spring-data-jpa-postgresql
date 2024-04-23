@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: passwordless-postgresql-spring-data-jpa
+metadata:
+  template: passwordless-postgresql-spring-data-jpa@1.0.0
+infra:
+    provider: "terraform"
+    path: "./infra"
+#services:
+#  application:
+#    project: ./apps/contoso-fiber
+#    language: java
+#    host: appservice

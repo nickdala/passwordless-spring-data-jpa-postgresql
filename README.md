@@ -60,3 +60,9 @@ Run the following command to create the Azure resources and deploy the code (abo
 ```
 azd up
 ```
+
+## Clean up
+
+```
+azd down --purge --force
+```

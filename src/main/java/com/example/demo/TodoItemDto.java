@@ -1,4 +1,4 @@
 package com.example.demo;
 
-public record TodoItemDto(long id, String title) {
+public record TodoItemDto(long id, String title, boolean completed) {
 }

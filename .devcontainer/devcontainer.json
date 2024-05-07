@@ -1,6 +1,9 @@
 {
-    "name": "Java 17 and maven 3.8.8 DevContainer to build Java RAG example with Azure AI",
-    "image": "mcr.microsoft.com/devcontainers/java:1-17-bullseye",
+    "name": "Passwordless Azure Database for PostgreSQL",
+    "build": {
+		"dockerfile": "Dockerfile"
+    },
+    "onCreateCommand": "./.devcontainer/scripts/onCreateCommand.sh",
     "features": {
         "azure-cli": "latest",
         "ghcr.io/devcontainers/features/terraform:1": {},

@@ -35,12 +35,6 @@ Next we provide the AZD tool with variables that it uses to create the deploymen
 azd env new <pick_a_name>
 ```
 
-Enable the AZD Terraform provider:
-
-```
-azd config set alpha.terraform on
-```
-
 Select the subscription that will be used for the deployment:
 
 ```
@@ -59,6 +53,42 @@ Run the following command to create the Azure resources and deploy the code (abo
 
 ```
 azd up
+```
+
+The deployment process will output the URL of the deployed application.
+
+```
+Deploying services (azd deploy)
+
+  (✓) Done: Deploying service application
+  - Endpoint: https://app-nickdalasql.azurewebsites.net/
+
+
+SUCCESS: Your application was deployed to Azure in 19 seconds.
+```
+
+## Bug
+
+The application will fail with the following error:
+
+```
+[org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Failed to execute SQL script statement #1 of URL [jar:nested:/home/site/wwwroot/app.jar/!BOOT-INF/classes/!/schema.sql]: create table if not exists todos ( todo_id bigint not null, title varchar(255), is_completed boolean, primary key (todo_id) )at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1786) ~[spring-beans-6.1.6.jar!/:6.1.6]at 
+```
+
+## Test the application
+
+The previous command will output the URL of the deployed application. You can use this URL to test the application.
+
+### Create a new Todo item
+
+```
+curl -X POST -H "Content-Type: application/json" -d '{"title":"Buy milk"}' <URL>/todos
+```
+
+### Get all Todo items
+
+```
+curl <URL>/todos
 ```
 
 ## Clean up

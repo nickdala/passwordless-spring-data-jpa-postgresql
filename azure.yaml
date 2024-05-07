@@ -6,8 +6,8 @@ metadata:
 infra:
     provider: "terraform"
     path: "./infra"
-#services:
-#  application:
-#    project: ./apps/contoso-fiber
-#    language: java
-#    host: appservice
+services:
+  application:
+    project: .
+    language: java
+    host: appservice

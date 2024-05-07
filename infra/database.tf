@@ -26,7 +26,7 @@ resource "azurerm_postgresql_flexible_server" "postgresql_database" {
 
   authentication {
     active_directory_auth_enabled  = true
-    password_auth_enabled          = true
+    password_auth_enabled          = true # TOD - turn this off
     tenant_id = data.azuread_client_config.current.tenant_id
   }
 
@@ -41,7 +41,7 @@ resource "azurerm_postgresql_flexible_server_active_directory_administrator" "co
   resource_group_name = azurerm_resource_group.resource_group.name
   tenant_id           = data.azuread_client_config.current.tenant_id
   object_id           = data.azuread_client_config.current.object_id
-  principal_name      = data.azuread_client_config.current.object_id
+  principal_name      = data.azuread_user.current.user_principal_name 
   principal_type      = "User"
 }
 
@@ -55,4 +55,11 @@ resource "azurerm_postgresql_flexible_server_firewall_rule" "dev_postresql_datab
   server_id        = azurerm_postgresql_flexible_server.postgresql_database.id
   start_ip_address = "0.0.0.0"
   end_ip_address   = "0.0.0.0"
+}
+
+resource "azurerm_postgresql_flexible_server_firewall_rule" "local_postresql_database_allow_access_rule" {
+  name             = "allow-access-from-local-ip"
+  server_id        = azurerm_postgresql_flexible_server.postgresql_database.id
+  start_ip_address = local.myip
+  end_ip_address   = local.myip
 }

@@ -37,15 +37,37 @@ resource "azurerm_linux_web_app" "application" {
   }
 
   app_settings = {
+    APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.app_insights.connection_string
+    ApplicationInsightsAgent_EXTENSION_VERSION = "~3"
+  }
+
+  logs {
+    http_logs {
+      file_system {
+        retention_in_mb   = 35
+        retention_in_days = 30
+      }
+    }
+  }
+
+  tags = {
+    "azd-service-name" = "application"
   }
 }
 
-resource "azurerm_app_service_connection" "application" {
-  name               = "example_serviceconnector"
-  app_service_id     = azurerm_linux_web_app.application.id
-  target_resource_id = azurerm_postgresql_flexible_server_database.postresql_database.id
-  authentication {
-    type = "systemAssignedIdentity"
+
+# Configure Diagnostic Settings for App Service
+resource "azurerm_monitor_diagnostic_setting" "app_service_diagnostic" {
+  name                           = "app-service-diagnostic-settings"
+  target_resource_id             = azurerm_linux_web_app.application.id
+  log_analytics_workspace_id     = azurerm_log_analytics_workspace.app_workspace.id
+
+  enabled_log {
+    category_group = "allLogs"
   }
-  client_type = "springBoot"
+
+  metric {
+    category = "AllMetrics"
+    enabled  = true
+  }
 }

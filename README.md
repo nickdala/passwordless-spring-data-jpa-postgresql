@@ -67,6 +67,10 @@ Deploying services (azd deploy)
 SUCCESS: Your application was deployed to Azure in 19 seconds.
 ```
 
+>Note: The service connector script is located [here](https://github.com/nickdala/passwordless-spring-data-jpa-postgresql/blob/main/infra/scripts/setup-service-connector.sh).
+
+>Note: The Terraform resouce that executes the script is [here](https://github.com/nickdala/passwordless-spring-data-jpa-postgresql/blob/main/infra/main.tf#L58).
+
 ## Bug
 
 The application will fail with the following error:

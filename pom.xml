@@ -15,7 +15,7 @@
 	<description>Sample project for Spring Data JPA with passwordless connection to Azure Database for PostgreSQL - Flexible Server via Service Connector</description>
 	<properties>
 		<java.version>17</java.version>
-		<spring-cloud-azure.version>5.11.0</spring-cloud-azure.version>
+		<spring-cloud-azure.version>5.13.0</spring-cloud-azure.version>
 	</properties>
 	<dependencies>
 		<dependency>

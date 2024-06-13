@@ -14,6 +14,12 @@ resource "azurerm_key_vault" "application" {
   sku_name = "standard"
 }
 
+resource azurerm_role_assignment dev_kv_administrator_user_role_assignement {
+  scope                 = azurerm_key_vault.application.id
+  role_definition_name  = "Key Vault Administrator"
+  principal_id          = data.azuread_client_config.current.object_id
+}
+
 resource "azurerm_key_vault_access_policy" "client" {
   key_vault_id = azurerm_key_vault.application.id
   tenant_id    = data.azuread_client_config.current.tenant_id
@@ -32,6 +38,9 @@ resource "azurerm_key_vault_secret" "database_password" {
   value        = random_password.password.result
   key_vault_id = azurerm_key_vault.application.id
 
-  depends_on = [ azurerm_key_vault_access_policy.client ]
+  depends_on = [
+    azurerm_key_vault_access_policy.client,
+    azurerm_role_assignment.dev_kv_administrator_user_role_assignement
+  ]
 }
 

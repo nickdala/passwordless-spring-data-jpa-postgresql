@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "3.100.0"
+      version = "3.107.0"
     }
     azurecaf = {
       source  = "aztfmod/azurecaf"
@@ -66,6 +66,7 @@ resource "null_resource" "service_connector" {
 
   depends_on = [
     azurerm_linux_web_app.application,
-    azurerm_postgresql_flexible_server_database.postresql_database
+    azurerm_postgresql_flexible_server_database.postresql_database,
+    azurerm_postgresql_flexible_server_active_directory_administrator.contoso-ad-admin
   ]
 }

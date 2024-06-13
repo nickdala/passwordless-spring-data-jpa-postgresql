@@ -77,6 +77,8 @@ The application will fail with the following error:
 
 ```
 [org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Failed to execute SQL script statement #1 of URL [jar:nested:/home/site/wwwroot/app.jar/!BOOT-INF/classes/!/schema.sql]: create table if not exists todos ( todo_id bigint not null, title varchar(255), is_completed boolean, primary key (todo_id) )at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1786) ~[spring-beans-6.1.6.jar!/:6.1.6]at 
+
+Caused by: org.postgresql.util.PSQLException: ERROR: permission denied for schema public 
 ```
 
 ## Test the application

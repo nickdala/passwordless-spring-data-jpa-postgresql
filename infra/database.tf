@@ -57,9 +57,9 @@ resource "azurerm_postgresql_flexible_server_firewall_rule" "dev_postresql_datab
   end_ip_address   = "0.0.0.0"
 }
 
-resource "azurerm_postgresql_flexible_server_firewall_rule" "local_postresql_database_allow_access_rule" {
-  name             = "allow-access-from-local-ip"
-  server_id        = azurerm_postgresql_flexible_server.postgresql_database.id
-  start_ip_address = local.myip
-  end_ip_address   = local.myip
-}
+#resource "azurerm_postgresql_flexible_server_firewall_rule" "local_postresql_database_allow_access_rule" {
+#  name             = "allow-access-from-local-ip"
+#  server_id        = azurerm_postgresql_flexible_server.postgresql_database.id
+#  start_ip_address = local.myip
+#  end_ip_address   = local.myip
+#}

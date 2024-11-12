@@ -11,6 +11,13 @@ Before deploying, you must be authenticated to Azure and have the appropriate su
 az login
 ```
 
+
+If you have multiple tenants, you can use the following command to log into the tenant:
+
+```shell
+az login --tenant <tenant-id>
+```
+
 Set the subscription to the one you want to use (you can use az account list to list available subscriptions):
 
 ```
@@ -25,6 +32,13 @@ Use the next command to login with the Azure Dev CLI (AZD) tool:
 
 ```
 azd auth login
+```
+
+
+If you have multiple tenants, you can use the following command to log into the tenant:
+
+```
+azd auth login --tenant-id <tenant-id>
 ```
 
 2. Create a new environment
@@ -71,19 +85,24 @@ SUCCESS: Your application was deployed to Azure in 19 seconds.
 
 >Note: The Terraform resouce that executes the script is [here](https://github.com/nickdala/passwordless-spring-data-jpa-postgresql/blob/main/infra/main.tf#L58).
 
-## Bug
-
-The application will fail with the following error:
-
-```
-[org/springframework/boot/autoconfigure/sql/init/DataSourceInitializationConfiguration.class]: Failed to execute SQL script statement #1 of URL [jar:nested:/home/site/wwwroot/app.jar/!BOOT-INF/classes/!/schema.sql]: create table if not exists todos ( todo_id bigint not null, title varchar(255), is_completed boolean, primary key (todo_id) )at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1786) ~[spring-beans-6.1.6.jar!/:6.1.6]at 
-
-Caused by: org.postgresql.util.PSQLException: ERROR: permission denied for schema public 
-```
-
 ## Test the application
 
 The previous command will output the URL of the deployed application. You can use this URL to test the application.
+
+```
+Apply complete! Resources: 18 added, 0 changed, 0 destroyed.
+
+Deploying services (azd deploy)
+
+  (✓) Done: Deploying service application
+  - Endpoint: https://app-nickpsql2.azurewebsites.net/
+```
+
+If you need to get the URL again, you can use the following command:
+
+```
+azd env get-value SERVICE_APPLICATION_ENDPOINTS
+```
 
 ### Create a new Todo item
 

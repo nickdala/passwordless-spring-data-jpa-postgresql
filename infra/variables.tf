@@ -11,5 +11,4 @@ variable "environment_name" {
 variable "subscription_id" {
   description = "The subscription id where the resources will be deployed"
   type        = string
-  
 }

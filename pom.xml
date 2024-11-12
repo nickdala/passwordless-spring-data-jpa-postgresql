@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.5</version>
+		<version>3.2.11</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
@@ -15,7 +15,7 @@
 	<description>Sample project for Spring Data JPA with passwordless connection to Azure Database for PostgreSQL - Flexible Server via Service Connector</description>
 	<properties>
 		<java.version>17</java.version>
-		<spring-cloud-azure.version>5.13.0</spring-cloud-azure.version>
+		<spring-cloud-azure.version>5.14.0</spring-cloud-azure.version>
 	</properties>
 	<dependencies>
 		<dependency>

@@ -2,7 +2,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "3.112.0"
+      version = "3.117.0"
     }
     azurecaf = {
       source  = "aztfmod/azurecaf"
@@ -56,9 +56,10 @@ resource "azurerm_resource_group" "resource_group" {
 
 
 resource "null_resource" "service_connector" {
-  #triggers = {
-  #  always_run = "${timestamp()}"
-  #}
+  triggers = {
+    web_app_id = azurerm_linux_web_app.application.id
+    db_id = azurerm_postgresql_flexible_server_database.postresql_database.id
+  }
 
   provisioner "local-exec" {
     command = "bash ./scripts/setup-service-connector.sh ${azurerm_linux_web_app.application.id} ${azurerm_postgresql_flexible_server_database.postresql_database.id}"

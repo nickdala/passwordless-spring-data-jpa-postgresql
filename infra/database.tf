@@ -1,9 +1,3 @@
-resource "random_password" "password" {
-  length           = 16
-  special          = true
-  override_special = "!#$%&*()-_=+[]{}<>:?"
-}
-
 resource "azurecaf_name" "postgresql_server" {
   name          = var.environment_name
   resource_type = "azurerm_postgresql_flexible_server"
@@ -14,9 +8,6 @@ resource "azurerm_postgresql_flexible_server" "postgresql_database" {
   resource_group_name = azurerm_resource_group.resource_group.name
   location            = var.location
 
-  administrator_login    = "pgadmin"
-  administrator_password = random_password.password.result
-
   sku_name                     = local.postgresql_sku_name
   version                      = "16"
 
@@ -26,7 +17,7 @@ resource "azurerm_postgresql_flexible_server" "postgresql_database" {
 
   authentication {
     active_directory_auth_enabled  = true
-    password_auth_enabled          = true # TOD - turn this off
+    password_auth_enabled          = false
     tenant_id = data.azuread_client_config.current.tenant_id
   }
 
@@ -57,9 +48,9 @@ resource "azurerm_postgresql_flexible_server_firewall_rule" "dev_postresql_datab
   end_ip_address   = "0.0.0.0"
 }
 
-#resource "azurerm_postgresql_flexible_server_firewall_rule" "local_postresql_database_allow_access_rule" {
-#  name             = "allow-access-from-local-ip"
-#  server_id        = azurerm_postgresql_flexible_server.postgresql_database.id
-#  start_ip_address = local.myip
-#  end_ip_address   = local.myip
-#}
+resource "azurerm_postgresql_flexible_server_firewall_rule" "local_postresql_database_allow_access_rule" {
+  name             = "allow-access-from-local-ip"
+  server_id        = azurerm_postgresql_flexible_server.postgresql_database.id
+  start_ip_address = local.myip
+  end_ip_address   = local.myip
+}

@@ -33,11 +33,11 @@ resource "azurerm_linux_web_app" "application" {
       java_server_version = "17"
       java_version = "17"
     }
-
   }
 
   app_settings = {
     APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.app_insights.connection_string
+    APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.app_insights.instrumentation_key
     ApplicationInsightsAgent_EXTENSION_VERSION = "~3"
   }
 
@@ -52,6 +52,13 @@ resource "azurerm_linux_web_app" "application" {
 
   tags = {
     "azd-service-name" = "application"
+  }
+
+  lifecycle {
+    ignore_changes = [
+      app_settings,
+      sticky_settings
+    ]
   }
 }
 
